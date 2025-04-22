@@ -11,7 +11,6 @@ import io.ktor.utils.io.streams.*
 import java.nio.file.Path
 import kotlin.io.path.absolute
 import kotlin.io.path.createDirectory
-import kotlin.io.path.createParentDirectories
 import kotlin.io.path.notExists
 import kotlin.io.path.outputStream
 

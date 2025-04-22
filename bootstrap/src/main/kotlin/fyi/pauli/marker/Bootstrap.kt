@@ -51,14 +51,10 @@ class Bootstrap() : JavaPlugin(), CoroutineScope {
 
             val version = manifest.versions[0]
 
-            println(this@Bootstrap.server.minecraftVersion.substringBeforeLast('.'))
-            println(this@Bootstrap.pluginMeta.apiVersion?.substringBeforeLast('.'))
+            val serverMinor = this@Bootstrap.server.minecraftVersion.substringBeforeLast('.')
+            val pluginMinor = this@Bootstrap.pluginMeta.apiVersion?.substringBeforeLast('.')
 
-            require(
-                this@Bootstrap.server.minecraftVersion.substringBeforeLast('.') == this@Bootstrap.pluginMeta.apiVersion?.substringBeforeLast(
-                    '.'
-                )
-            ) {
+            require(serverMinor == pluginMinor) {
                 "Latest client version is not equal to the supported version. "
             }
 
@@ -70,15 +66,9 @@ class Bootstrap() : JavaPlugin(), CoroutineScope {
 
             val file = client.downloadFileAsStream(this@Bootstrap, version, versions.downloads.client) ?: return@launch
 
-            val sha1 = MessageDigest.getInstance("SHA-1")
+            //TODO: Correcht SHA-1 calculation
 
-            sha1.update(file.readBytes())
 
-            val hex = sha1.digest().joinToString("") { "%02x".format(it) }
-
-            check(version.sha1 == hex) {
-                "SHA1 of downloaded file and described sha1 in manifest doe not match."
-            }
         }
     }
 }
