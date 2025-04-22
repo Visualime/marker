@@ -1,0 +1,32 @@
+[versions]
+ktor = "3.1.2"
+kotlin = "2.1.20"
+minecraftVersion = "1.21.5"
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+
+paperweight-userdev = { id = "io.papermc.paperweight.userdev", version = "2.0.0-SNAPSHOT" }
+
+paper-yml = { id = "de.eldoria.plugin-yml.paper", version = "0.7.1" }
+paper-run = { id = "xyz.jpenilla.run-paper", version = "2.3.1" }
+
+[libraries]
+logback = { group = "ch.qos.logback", name = "logback-classic", version = "1.5.18" }
+
+ktor-client-core = { group = "io.ktor", name = "ktor-client-core-jvm", version.ref = "ktor" }
+ktor-client-cio = { group = "io.ktor", name = "ktor-client-cio-jvm", version.ref = "ktor" }
+ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation-jvm", version.ref = "ktor" }
+
+ktor-serialization-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json-jvm", version.ref = "ktor" }
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json-jvm", version = "1.8.1" }
+
+kotlinx-io = { group = "org.jetbrains.kotlinx", name = "kotlinx-io-core-jvm", version = "0.7.0" }
+
+[bundles]
+ktor-client = [
+    "ktor-client-core",
+    "ktor-client-cio",
+    "ktor-client-content-negotiation",
+]

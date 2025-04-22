@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
-public class TestPluginLoader implements PluginLoader {
+public class BootstrapLoader implements PluginLoader {
   @Override
   public void classloader(@NotNull PluginClasspathBuilder classpathBuilder) {
     MavenLibraryResolver resolver = new MavenLibraryResolver();
