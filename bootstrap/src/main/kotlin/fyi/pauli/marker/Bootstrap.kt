@@ -58,9 +58,14 @@ class Bootstrap() : JavaPlugin(), CoroutineScope {
                 dataPath.resolve("bootstrap.json").inputStream()
             )
 
-            if (indexing.currentVersion == server.minecraftVersion && indexing.versions.contains(server.minecraftVersion)) return@launch
+            if (indexing.currentVersion == server.minecraftVersion && indexing.versions.contains(server.minecraftVersion)) {
+                logger.info("Assets of ${indexing.currentVersion} are already present. Aborting download process.")
+                return@launch
+            }
 
             indexing.currentVersion = server.minecraftVersion
+
+            logger.info("Starting downloading and caching of the models of ${indexing.currentVersion}")
 
             val manifest: PistonManifest = async {
                 client.get("https://piston-meta.mojang.com/mc/game/version_manifest_v2.json").body<PistonManifest>()
@@ -103,6 +108,8 @@ class Bootstrap() : JavaPlugin(), CoroutineScope {
             versionCache.resolve("assets/").deleteRecursively()
 
             file.deleteIfExists()
+
+            logger.info("Finished downloading and caching of the models of ${indexing.currentVersion}")
         }
     }
 }
