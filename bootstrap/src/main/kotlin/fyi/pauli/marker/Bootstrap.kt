@@ -35,8 +35,6 @@ class Bootstrap() : JavaPlugin(), CoroutineScope {
         }
     }
 
-    val minimessage = MiniMessage.miniMessage()
-
     val cacheDirectory: Path = dataPath.resolve("cache/").apply {
         if (parent.notExists()) createParentDirectories()
         if (notExists()) createDirectory()
