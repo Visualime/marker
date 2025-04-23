@@ -3,7 +3,7 @@ package fyi.pauli.marker.piston
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Versions(
+data class VersionMeta(
     val downloads: Downloads
 )  {
 
