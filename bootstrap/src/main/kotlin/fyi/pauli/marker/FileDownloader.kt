@@ -19,7 +19,7 @@ suspend fun HttpClient.downloadFileAsStream(
     val response = get(client.url)
 
     check(response.status.isSuccess()) {
-       " Client file could not be downloaded. ${response.status.description}"
+        " Client file could not be downloaded. ${response.status.description}"
     }
 
     val channel: ByteReadChannel = response.body()
