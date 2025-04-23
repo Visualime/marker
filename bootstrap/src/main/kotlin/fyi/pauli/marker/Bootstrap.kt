@@ -1,6 +1,8 @@
 package fyi.pauli.marker
 
+import fyi.pauli.marker.download.downloadFileAsStream
 import fyi.pauli.marker.hash.calculateSha1Hash
+import fyi.pauli.marker.indexing.Indexing
 import fyi.pauli.marker.piston.PistonManifest
 import fyi.pauli.marker.piston.VersionMeta
 import fyi.pauli.marker.unpack.unpackJarFile
@@ -11,8 +13,9 @@ import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.coroutines.*
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
-import net.kyori.adventure.text.minimessage.MiniMessage
+import kotlinx.serialization.json.decodeFromStream
 import org.bukkit.plugin.java.JavaPlugin
 import java.nio.file.Path
 import kotlin.coroutines.CoroutineContext
@@ -40,14 +43,31 @@ class Bootstrap() : JavaPlugin(), CoroutineScope {
         if (notExists()) createDirectory()
     }
 
+    @OptIn(ExperimentalSerializationApi::class, ExperimentalPathApi::class)
     override fun onLoad() {
         CoroutineScope(coroutineContext).launch {
+            val bootstrapFile = dataPath.resolve("bootstrap.json").apply {
+                if (parent.notExists()) createParentDirectories()
+                if (notExists()) {
+                    createFile()
+                    writeText(Json.encodeToString(Indexing(server.minecraftVersion, mutableListOf())))
+                }
+            }
+
+            val indexing = Json.decodeFromStream<Indexing>(
+                dataPath.resolve("bootstrap.json").inputStream()
+            )
+
+            if (indexing.currentVersion == server.minecraftVersion && indexing.versions.contains(server.minecraftVersion)) return@launch
+
+            indexing.currentVersion = server.minecraftVersion
+
             val manifest: PistonManifest = async {
                 client.get("https://piston-meta.mojang.com/mc/game/version_manifest_v2.json").body<PistonManifest>()
             }.await()
 
             val version = manifest.versions.find {
-                it.id == server.minecraftVersion
+                it.id == indexing.currentVersion
             } ?: throw IllegalArgumentException("No version matching this server version found in manifest.")
 
             val versionMeta: VersionMeta = async {
@@ -66,7 +86,7 @@ class Bootstrap() : JavaPlugin(), CoroutineScope {
                 "Calculated SHA-1 of downloaded file does not match given SHA-1 in manifest."
             }
 
-            val versionCache = cacheDirectory.resolve("${version.id}/").apply {
+            val versionCache = cacheDirectory.resolve("${indexing.currentVersion}/").apply {
                 if (parent.notExists()) createParentDirectories()
                 if (notExists()) createDirectory()
             }
@@ -75,8 +95,12 @@ class Bootstrap() : JavaPlugin(), CoroutineScope {
                 unpackJarFile(file, versionCache)
             }.await()
 
+            indexing.versions += indexing.currentVersion
+
+            bootstrapFile.writeText(Json.encodeToString(indexing))
+
             versionCache.resolve("assets/minecraft/models/block/").moveTo(versionCache.resolve("models/"))
-            versionCache.resolve("assets/").deleteIfExists()
+            versionCache.resolve("assets/").deleteRecursively()
 
             file.deleteIfExists()
         }

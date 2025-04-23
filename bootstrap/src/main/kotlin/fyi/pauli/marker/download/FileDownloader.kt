@@ -1,5 +1,6 @@
-package fyi.pauli.marker
+package fyi.pauli.marker.download
 
+import fyi.pauli.marker.Bootstrap
 import fyi.pauli.marker.piston.PistonManifest
 import fyi.pauli.marker.piston.VersionMeta
 import io.ktor.client.*

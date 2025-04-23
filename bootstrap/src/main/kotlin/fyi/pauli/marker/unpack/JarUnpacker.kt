@@ -11,7 +11,6 @@ fun unpackJarFile(jarFile: Path, destinationFolder: Path) {
     with(ZipFile(jarFile.toFile())) {
         entries().asSequence().forEach { entry ->
             if (!entry.name.startsWith("assets/minecraft/models/block")) return@forEach
-            println(entry.name)
             destinationFolder.resolve(entry.name).apply {
                 if (parent.notExists()) createParentDirectories()
                 if (entry.isDirectory) {
