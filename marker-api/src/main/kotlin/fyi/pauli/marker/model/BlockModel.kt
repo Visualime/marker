@@ -12,6 +12,7 @@ data class BlockModel(
     val display: Display? = null,
     val textures: Textures,
     val elements: List<Element>? = null,
+    val ambientOcclusion: Boolean? = null
 ) {
     @Serializable
     data class Display(
@@ -67,5 +68,6 @@ data class BlockModel(
         val particle: String? = null,
         val sides: String? = null,
         val top: String? = null,
+        val tendrils: String? = null,
     )
 }

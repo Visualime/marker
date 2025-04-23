@@ -6,7 +6,6 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.contextual
 
-
 internal val json = Json {
     ignoreUnknownKeys = false
     explicitNulls = false

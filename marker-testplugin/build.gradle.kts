@@ -1,3 +1,5 @@
+import net.minecrell.pluginyml.paper.PaperPluginDescription
+
 plugins {
     alias(libs.plugins.kotlin.jvm)
 
@@ -16,7 +18,7 @@ dependencies {
     paperweight.paperDevBundle("${libs.versions.minecraftVersion.get()}-R0.1-SNAPSHOT")
     paperLibrary(kotlin("stdlib"))
 
-    paperLibrary("fyi.pauli", "marker-api", project.version.toString())
+    paperLibrary("fyi.pauli", "marker-api", "0.0.7")
 }
 
 paper {
@@ -28,4 +30,11 @@ paper {
     loader = "fyi.pauli.marker.TestPluginLoader"
     generateLibrariesJson = true
     apiVersion = libs.versions.minecraftVersion.get().substringBeforeLast('.')
+
+    serverDependencies {
+        register("marker-bootstrap") {
+            required = false
+            load = PaperPluginDescription.RelativeLoadOrder.BEFORE
+        }
+    }
 }

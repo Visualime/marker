@@ -7,6 +7,8 @@ plugins {
     alias(libs.plugins.paperweight.userdev)
 }
 
+version = "0.0.7"
+
 dependencies {
     paperweight.paperDevBundle("${libs.versions.minecraftVersion.get()}-R0.1-SNAPSHOT")
 
@@ -37,7 +39,7 @@ publishing {
             from(components["java"])
 
             this.groupId = project.group.toString()
-            this.artifactId = "marker-api"
+            this.artifactId = project.name
             this.version = project.version.toString()
 
             pom {
