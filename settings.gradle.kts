@@ -1,8 +1,9 @@
 rootProject.name = "marker"
 
 include(
-    ":api",
-    ":bootstrap",
+    ":marker-api",
+    ":marker-bootstrap",
+    ":marker-testplugin"
 )
 
 pluginManagement {
