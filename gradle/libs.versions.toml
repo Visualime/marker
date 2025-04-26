@@ -20,9 +20,12 @@ ktor-client-cio = { group = "io.ktor", name = "ktor-client-cio-jvm", version.ref
 ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation-jvm", version.ref = "ktor" }
 
 ktor-serialization-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json-jvm", version.ref = "ktor" }
-kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json-jvm", version = "1.8.1" }
 
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json-jvm", version = "1.8.1" }
+kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version = "1.10.2" }
 kotlinx-io = { group = "org.jetbrains.kotlinx", name = "kotlinx-io-core-jvm", version = "0.7.0" }
+
+mockbukkit = { group = "org.mockbukkit.mockbukkit", name = "mockbukkit-v1.21", version = "4.46.0" }
 
 [bundles]
 ktor-client = [
