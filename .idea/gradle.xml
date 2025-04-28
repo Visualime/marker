@@ -11,7 +11,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/marker-api" />
             <option value="$PROJECT_DIR$/marker-bootstrap" />
-            <option value="$PROJECT_DIR$/marker-testplugin" />
+            <option value="$PROJECT_DIR$/marker-test" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="true" />

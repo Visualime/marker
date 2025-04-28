@@ -24,11 +24,6 @@ dependencies {
 
     paperLibrary(libs.ktor.serialization.json)
     paperLibrary(libs.bundles.ktor.client)
-
-    testImplementation(kotlin("test"))
-    testImplementation(project(":marker-api"))
-    testImplementation(libs.mockbukkit)
-    testImplementation(libs.kotlinx.coroutines.core)
 }
 
 paper {
@@ -40,8 +35,4 @@ paper {
     loader = "fyi.pauli.marker.BootstrapLoader"
     generateLibrariesJson = true
     apiVersion = libs.versions.minecraftVersion.get().substringBeforeLast('.')
-}
-
-tasks.test {
-    useJUnitPlatform()
 }

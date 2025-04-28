@@ -1,8 +1,8 @@
 rootProject.name = "marker"
 
 include(
-    ":marker-api",
-    ":marker-bootstrap",
+    "${rootProject.name}-api",
+    "${rootProject.name}-bootstrap",
 )
 
 pluginManagement {
