@@ -11,7 +11,7 @@ object ModelCoverageTest : Test() {
     override val name: String = "model-coverage"
 
     override fun start(sender: CommandSender) {
-        val models = parseAllModels(Plugin)
+        val models = Plugin.parseAllModels
 
         val cachedModelsSize = Plugin.cachedModelsPath.listDirectoryEntries().size
 

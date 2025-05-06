@@ -2,10 +2,13 @@ import net.minecrell.pluginyml.paper.PaperPluginDescription
 
 plugins {
     alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.plugin.serialization)
 
     alias(libs.plugins.paperweight.userdev)
     alias(libs.plugins.paper.yml)
     alias(libs.plugins.paper.run)
+
+    alias(libs.plugins.shadow)
 }
 
 repositories {
@@ -17,8 +20,10 @@ repositories {
 dependencies {
     paperweight.paperDevBundle("${libs.versions.minecraftVersion.get()}-R0.1-SNAPSHOT")
     paperLibrary(kotlin("stdlib"))
+    paperLibrary(libs.kotlinx.serialization.json)
 
-    paperLibrary("fyi.pauli", "marker-api", "0.0.7")
+    implementation(project(":marker-api"))
+
 }
 
 paper {
@@ -33,8 +38,12 @@ paper {
 
     serverDependencies {
         register("marker-bootstrap") {
-            required = false
+            required = true // Required if you plan to use advanced features
             load = PaperPluginDescription.RelativeLoadOrder.BEFORE
         }
     }
+}
+
+tasks.assemble {
+    dependsOn(tasks.reobfJar)
 }

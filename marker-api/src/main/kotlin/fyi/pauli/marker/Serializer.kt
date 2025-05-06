@@ -1,17 +1,18 @@
 package fyi.pauli.marker
 
-import fyi.pauli.marker.model.serializer.Vector3fSerializer
-import fyi.pauli.marker.model.serializer.Vector4fSerializer
+import fyi.pauli.marker.model.serializer.Vector3dListSerializer
+import fyi.pauli.marker.model.serializer.Vector4dListSerializer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.contextual
 
-internal val json = Json {
-    ignoreUnknownKeys = false
+val json: Json = Json {
+    ignoreUnknownKeys = true
     explicitNulls = false
+    isLenient = true
 
     serializersModule = SerializersModule {
-        contextual(Vector3fSerializer)
-        contextual(Vector4fSerializer)
+        contextual(Vector3dListSerializer)
+        contextual(Vector4dListSerializer)
     }
 }

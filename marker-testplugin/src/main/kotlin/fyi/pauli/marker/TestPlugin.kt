@@ -9,7 +9,6 @@ class TestPlugin : JavaPlugin() {
         lateinit var INSTANCE: TestPlugin; private set
     }
 
-
     override fun onEnable() {
         INSTANCE = this
         @Suppress("UnstableApiUsage")

@@ -10,7 +10,7 @@ import io.papermc.paper.command.brigadier.Commands
 @Suppress("UnstableApiUsage")
 fun testCommand(): LiteralCommandNode<CommandSourceStack> {
     val tests = listOf<Test>(
-        ModelCoverageTest
+        ModelCoverageTest,
     )
 
     val featureArgument = Commands.argument("feature", StringArgumentType.string())
