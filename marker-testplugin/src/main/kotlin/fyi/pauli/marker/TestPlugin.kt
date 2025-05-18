@@ -14,6 +14,7 @@ class TestPlugin : JavaPlugin() {
         @Suppress("UnstableApiUsage")
         lifecycleManager.registerEventHandler(LifecycleEvents.COMMANDS) { event ->
             event.registrar().register(testCommand())
+            event.registrar().register(markerCommand())
         }
     }
 }

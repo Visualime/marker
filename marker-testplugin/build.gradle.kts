@@ -38,7 +38,7 @@ paper {
 
     serverDependencies {
         register("marker-bootstrap") {
-            required = true // Required if you plan to use advanced features
+            required = false // Required if you plan to use advanced features
             load = PaperPluginDescription.RelativeLoadOrder.BEFORE
         }
     }

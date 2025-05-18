@@ -1,4 +1,4 @@
-package fyi.pauli.marker.model.serializer
+package fyi.pauli.marker.util.serializer
 
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerializationException

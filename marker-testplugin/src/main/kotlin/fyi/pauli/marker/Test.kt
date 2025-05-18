@@ -1,10 +1,12 @@
 package fyi.pauli.marker
 
-import org.bukkit.command.CommandSender
+import com.mojang.brigadier.context.CommandContext
+import io.papermc.paper.command.brigadier.CommandSourceStack
 
+@Suppress("UnstableApiUsage")
 abstract class Test {
 
     abstract val name: String
-    abstract fun start(sender: CommandSender)
+    abstract fun start(context: CommandContext<CommandSourceStack>)
 
 }

@@ -1,6 +1,8 @@
 package fyi.pauli.marker
 
 import fyi.pauli.marker.model.BlockModel
+import fyi.pauli.marker.util.json
+import org.bukkit.Material
 import org.bukkit.plugin.Plugin
 import java.nio.file.Path
 import kotlin.io.path.listDirectoryEntries
@@ -14,4 +16,11 @@ val Plugin.parseAllModels: List<BlockModel>
         cachedModelsPath.listDirectoryEntries().forEach { path ->
             add(json.decodeFromString(path.readText()))
         }
+    }
+
+context(Plugin)
+val Material.parseModel: BlockModel?
+    get() {
+        val path = this@Plugin.cachedModelsPath.resolve(this.name.lowercase()) ?: return null
+        return json.decodeFromString(path.readText())
     }

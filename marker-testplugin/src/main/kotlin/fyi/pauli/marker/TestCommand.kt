@@ -26,7 +26,7 @@ fun testCommand(): LiteralCommandNode<CommandSourceStack> {
                 return@executes -1
             }
 
-            test.start(ctx.source.sender)
+            test.start(ctx)
             Command.SINGLE_SUCCESS
         }.build()
 

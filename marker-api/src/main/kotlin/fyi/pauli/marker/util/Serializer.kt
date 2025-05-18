@@ -1,7 +1,7 @@
-package fyi.pauli.marker
+package fyi.pauli.marker.util
 
-import fyi.pauli.marker.model.serializer.Vector3dListSerializer
-import fyi.pauli.marker.model.serializer.Vector4dListSerializer
+import fyi.pauli.marker.util.serializer.Vector3dListSerializer
+import fyi.pauli.marker.util.serializer.Vector4dListSerializer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.contextual
