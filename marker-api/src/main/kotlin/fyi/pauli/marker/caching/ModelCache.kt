@@ -35,8 +35,8 @@ object ModelCache {
     internal val logger: Logger = LoggerFactory.getLogger(ModelCache::class.java)
 
     internal val markerDirectory: Path =
-        Bukkit.getServer().pluginsFolder.toPath().resolve(".marker/").createIfNotExists()
-    internal val cacheDirectory: Path = markerDirectory.resolve("cache/").createIfNotExists()
+        Bukkit.getServer().pluginsFolder.toPath().resolve(".marker/").createIfNotExists(directory = true)
+    internal val cacheDirectory: Path = markerDirectory.resolve("cache/").createIfNotExists(directory = true)
     internal val cacheFile: Path = markerDirectory.resolve("cache.json").createIfNotExists {
         writeText(Json.encodeToString(Cache(mutableListOf())))
     }
@@ -71,15 +71,18 @@ object ModelCache {
 
         val clientFile = httpClient.downloadClientFile(version, versionMeta.downloads.client)
 
-        val clientFileHash = clientFile.calculateSHA1Hash().joinToString { "%1$02x".format(it) }
+        val clientFileHash = clientFile.calculateSHA1Hash().joinToString("") { "%1$02x".format(it) }
 
-        check(version.sha1 == clientFileHash) {
-            "Calculated hash of downloaded file does not match given hash in manifest."
+        if (versionMeta.downloads.client.sha1 != clientFileHash) {
+            logger.warn("Calculated hash of downloaded file does not match given hash in manifest. Aborting caching.")
+            clientFile.deleteIfExists()
+            return@runBlocking
         }
 
-        val versionCache = cacheDirectory.resolve(serverVersion).createIfNotExists()
+        val versionCache = cacheDirectory.resolve("$serverVersion/").createIfNotExists(directory = true)
 
         clientFile.unpackJarFile(versionCache)
+
         versionCache.resolve("assets/minecraft/models/block/").moveTo(versionCache.resolve("models/"))
         versionCache.resolve("assets/").deleteRecursively()
 

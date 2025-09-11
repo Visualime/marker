@@ -43,7 +43,12 @@ paper {
         }
     }
 }
+tasks {
+    assemble {
+        dependsOn(reobfJar)
+    }
 
-tasks.assemble {
-    dependsOn(tasks.reobfJar)
+    generatePaperPluginDescription {
+        useDefaultCentralProxy()
+    }
 }

@@ -1,7 +1,9 @@
 package fyi.pauli.marker
 
+import fyi.pauli.marker.caching.ModelCache
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents
 import org.bukkit.plugin.java.JavaPlugin
+import kotlin.system.exitProcess
 
 class TestPlugin : JavaPlugin() {
 
@@ -9,11 +11,13 @@ class TestPlugin : JavaPlugin() {
         lateinit var INSTANCE: TestPlugin; private set
     }
 
+    override fun onLoad() {
+        ModelCache.setupModelCache()
+    }
+
     override fun onEnable() {
         INSTANCE = this
-        @Suppress("UnstableApiUsage")
         lifecycleManager.registerEventHandler(LifecycleEvents.COMMANDS) { event ->
-            event.registrar().register(testCommand())
             event.registrar().register(markerCommand())
         }
     }

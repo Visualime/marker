@@ -7,9 +7,7 @@ import io.papermc.paper.command.brigadier.CommandSourceStack
 import io.papermc.paper.command.brigadier.Commands
 import org.bukkit.entity.Player
 
-@Suppress("UnstableApiUsage")
 fun markerCommand(): LiteralCommandNode<CommandSourceStack> {
-
     val linear = Commands.literal("linear")
         .executes {
             val player = it.source.sender as Player

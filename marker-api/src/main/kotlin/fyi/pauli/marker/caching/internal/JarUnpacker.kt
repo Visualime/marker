@@ -2,21 +2,19 @@ package fyi.pauli.marker.caching.internal
 
 import java.nio.file.Path
 import java.util.zip.ZipFile
-import kotlin.io.path.extension
-import kotlin.io.path.isDirectory
-import kotlin.io.path.outputStream
+import kotlin.io.path.*
 
 internal fun Path.unpackJarFile(to: Path) {
     if (this.extension != "jar") return
 
-    val zipFile = ZipFile(this.toFile())
+    with(ZipFile(this.toFile())) {
+        entries().asSequence().forEach { entry ->
+            if (!entry.name.startsWith("assets/minecraft/models/block")) return@forEach
 
-    zipFile.entries().asSequence().forEach { entry ->
-        if (!entry.name.startsWith("assets/minecraft/models/block")) return@forEach
+            val resolved = to.resolve(entry.name).createIfNotExists(directory = entry.isDirectory)
+            if (resolved.isDirectory()) return@forEach
 
-        val resolved = to.resolve(entry.name).createIfNotExists()
-        if (resolved.isDirectory()) return@forEach
-
-        zipFile.getInputStream(entry).copyTo(resolved.outputStream())
+            getInputStream(entry).copyTo(resolved.outputStream())
+        }
     }
 }
