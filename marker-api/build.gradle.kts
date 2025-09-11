@@ -1,14 +1,16 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import java.net.URI
+import com.vanniktech.maven.publish.KotlinJvm
 
 plugins {
+    signing
     `maven-publish`
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.kotlin.plugin.serialization)
     alias(libs.plugins.paperweight.userdev)
+    alias(libs.plugins.maven.publish)
 }
 
 version = "0.0.7"
+description = "Marker library for minecraft"
 
 dependencies {
     paperweight.paperDevBundle("${libs.versions.minecraftVersion.get()}-R0.1-SNAPSHOT")
@@ -19,53 +21,48 @@ dependencies {
 
 publishing {
     repositories {
-        maven {
+        maven("https://repo.unknowncity.de/releases") {
             name = "unknowncity"
-            url = URI.create("https://repo.unknowncity.de/releases")
             credentials {
                 password = System.getenv("MVN_REPO_USERNAME")
                 username = System.getenv("MVN_REPO_PASSWORD")
             }
         }
 
-        maven {
+        maven("https://repo.pauli.fyi/releases") {
             name = "pauli"
-            url = URI.create("https://repo.pauli.fyi/releases")
             credentials(PasswordCredentials::class)
         }
     }
+}
 
-    publications {
-        register<MavenPublication>(project.name) {
-            from(components["java"])
+mavenPublishing {
+    configure(KotlinJvm())
 
-            this.groupId = project.group.toString()
-            this.artifactId = project.name
-            this.version = project.version.toString()
+    publishToMavenCentral(false)
+    signAllPublications()
 
-            pom {
-                name = project.name
-                description = project.description
+    pom {
+        name = project.name
+        description = project.description
 
-                developers {
-                    developer { name = "kxmpxtxnt" }
-                    developer { name = "TheZexquex" }
-                }
+        developers {
+            developer { name = "kxmpxtxnt" }
+            developer { name = "TheZexquex" }
+        }
 
-                licenses {
-                    license {
-                        name = "GNU General Public License 3"
-                        url = "https://www.gnu.org/licenses/gpl-3.0.txt"
-                    }
-                }
-
-                url = "https://github.com/Visualime/marker"
-
-                scm {
-                    connection = "scm:git:git://github.com/Visualime/marker"
-                    url = "https://github.com/Visualime/marker/tree/main"
-                }
+        licenses {
+            license {
+                name = "GNU General Public License 3"
+                url = "https://www.gnu.org/licenses/gpl-3.0.txt"
             }
+        }
+
+        url = "https://github.com/Visualime/marker"
+
+        scm {
+            connection = "scm:git:git://github.com/Visualime/marker"
+            url = "https://github.com/Visualime/marker/tree/main"
         }
     }
 }
