@@ -9,7 +9,7 @@ kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization"
 
 paperweight-userdev = { id = "io.papermc.paperweight.userdev", version = "2.0.0-SNAPSHOT" }
 
-paper-yml = { id = "de.eldoria.plugin-yml.paper", version = "0.7.1" }
+paper-yml = { id = "de.eldoria.plugin-yml.paper", version = "0.8.0" }
 paper-run = { id = "xyz.jpenilla.run-paper", version = "2.3.1" }
 
 maven-publish = { id = "com.vanniktech.maven.publish", version = "0.34.0" }
