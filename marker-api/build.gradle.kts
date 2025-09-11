@@ -15,8 +15,12 @@ description = "Marker library for minecraft"
 dependencies {
     paperweight.paperDevBundle("${libs.versions.minecraftVersion.get()}-R0.1-SNAPSHOT")
 
-    implementation(libs.kotlinx.io)
-    implementation(libs.kotlinx.serialization.json)
+    api(kotlin("stdlib"))
+
+    api(libs.kotlinx.io)
+    api(libs.kotlinx.serialization.json)
+
+    api(libs.bundles.ktor.client)
 }
 
 publishing {

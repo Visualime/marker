@@ -1,7 +1,7 @@
 [versions]
-ktor = "3.1.2"
-kotlin = "2.1.20"
-minecraftVersion = "1.21.5"
+ktor = "3.2.3"
+kotlin = "2.2.10"
+minecraftVersion = "1.21.8"
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
@@ -32,5 +32,6 @@ kotlinx-io = { group = "org.jetbrains.kotlinx", name = "kotlinx-io-core-jvm", ve
 ktor-client = [
     "ktor-client-core",
     "ktor-client-cio",
+    "ktor-serialization-json",
     "ktor-client-content-negotiation",
 ]

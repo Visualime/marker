@@ -1,9 +1,8 @@
-package fyi.pauli.marker.indexing
+package fyi.pauli.marker.caching
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Indexing(
-    var currentVersion: String,
+data class Cache(
     val versions: MutableList<String>
 )
