@@ -10,7 +10,6 @@ import java.nio.file.Path
 import kotlin.io.path.listDirectoryEntries
 import kotlin.io.path.readText
 
-context(Plugin)
 val Material.parseModel: BlockModel?
     get() {
         val path = ModelCache.cacheDirectory.resolve("${Bukkit.getServer().minecraftVersion}/").resolve(this.name.lowercase()) ?: return null
