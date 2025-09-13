@@ -15,10 +15,9 @@ abstract class Marker<D : Display>(
     open var color: NamedTextColor = NamedTextColor.RED,
     open var globallyVisible: Boolean = true,
     open var glowing: Boolean = true,
-    protected var overlayingMarker: Marker<D>? = null,
 ) {
 
-    private val marker = overlayingMarker ?: this
+    var overlayingMarker: Marker<D> = this
 
     protected val logger: Logger = LoggerFactory.getLogger(Marker::class.java)
 
@@ -29,19 +28,19 @@ abstract class Marker<D : Display>(
     protected abstract fun spawn(location: Location, builder: D.() -> Unit): D
 
     fun part(builder: D.() -> Unit) {
-        val spawn = spawn(marker.spawnLocation) {
-            glowColorOverride = Color.fromRGB(marker.color.value())
-            isVisibleByDefault = marker.globallyVisible
-            isGlowing = marker.glowing
+        spawn(overlayingMarker.spawnLocation) {
+            glowColorOverride = Color.fromRGB(overlayingMarker.color.value())
+            isVisibleByDefault = overlayingMarker.globallyVisible
+            isGlowing = overlayingMarker.glowing
 
             viewRange = 256f
             brightness = Display.Brightness(15, 15)
             isPersistent = false
 
             builder(this)
-        }
 
-        (overlayingMarker?.displayEntities ?: displayEntities) += spawn
+            overlayingMarker.displayEntities += this
+        }
     }
 
     internal fun create() {

@@ -1,4 +1,5 @@
 import net.minecrell.pluginyml.paper.PaperPluginDescription
+import xyz.jpenilla.runtask.task.AbstractRun
 
 plugins {
     alias(libs.plugins.kotlin.jvm)

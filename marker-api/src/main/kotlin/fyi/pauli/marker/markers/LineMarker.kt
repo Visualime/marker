@@ -6,6 +6,7 @@ import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.entity.BlockDisplay
 import org.bukkit.util.Transformation
+import org.bukkit.util.Vector
 import org.joml.AxisAngle4f
 import org.joml.Vector3f
 
@@ -21,20 +22,20 @@ class LineMarker(
 
     override fun markerSetup() {
         part {
-            val vector = line.asVector().toVector3f()
-
-            if (vector.length() == 0f)
-                logger.warn("Line length for line marker cannot be zero!")
-
             block = material.createBlockData()
 
-            val xAxis = Vector3f(1f, 0f, 0f)
-            val rotationAxis = Vector3f(vector).cross(xAxis).normalize()
+            val vector = line.asVector()
+
+            val xAxis = Vector(1, 0, 0)
+            var rotationAxis = vector.clone().crossProduct(xAxis).normalize()
             val angle = -vector.angle(xAxis)
 
-            val rotation = AxisAngle4f(angle, rotationAxis)
+            if (vector.angle(xAxis) == 0f)
+                rotationAxis = Vector(0, 0, 0)
 
-            val scale = Vector3f(vector.length(), thickness, thickness)
+            val rotation = AxisAngle4f(angle, rotationAxis.toVector3f())
+
+            val scale = Vector3f(vector.length().toFloat(), thickness, thickness)
 
             transformation = Transformation(
                 Vector3f(),
@@ -51,8 +52,4 @@ fun lineMarker(line: Line, builder: LineMarker.() -> Unit = {}): LineMarker {
         builder()
         create()
     }
-}
-
-fun lineMarker(start: Location, end: Location, builder: LineMarker.() -> Unit = {}): LineMarker {
-    return lineMarker(Line(start, end), builder)
 }
