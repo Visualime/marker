@@ -20,30 +20,29 @@ class LineMarker(
         return location.world.spawn(location, BlockDisplay::class.java, builder)
     }
 
-    override fun markerSetup() {
-        part {
-            block = material.createBlockData()
+    override fun transformer(display: BlockDisplay) {
+        display.block = material.createBlockData()
 
-            val vector = line.asVector()
+        val vector = line.asVector()
 
-            val xAxis = Vector(1, 0, 0)
-            var rotationAxis = vector.clone().crossProduct(xAxis).normalize()
-            val angle = -vector.angle(xAxis)
+        val xAxis = Vector(1, 0, 0)
+        var rotationAxis = vector.clone().crossProduct(xAxis).normalize()
+        val angle = -vector.angle(xAxis)
 
-            if (vector.angle(xAxis) == 0f)
-                rotationAxis = Vector(0, 0, 0)
+        if (vector.angle(xAxis) == 0f)
+            rotationAxis = Vector(0, 0, 0)
 
-            val rotation = AxisAngle4f(angle, rotationAxis.toVector3f())
+        val rotation = AxisAngle4f(angle, rotationAxis.toVector3f())
 
-            val scale = Vector3f(vector.length().toFloat(), thickness, thickness)
+        val scale = Vector3f(vector.length().toFloat(), thickness, thickness)
 
-            transformation = Transformation(
-                Vector3f(),
-                rotation,
-                scale,
-                AxisAngle4f()
-            )
-        }
+        display.transformation = Transformation(
+            Vector3f(),
+            rotation,
+            scale,
+            AxisAngle4f()
+        )
+
     }
 }
 

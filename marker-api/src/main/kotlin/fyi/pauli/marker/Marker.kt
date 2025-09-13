@@ -23,11 +23,11 @@ abstract class Marker<D : Display>(
 
     internal val displayEntities: MutableSet<D> = mutableSetOf()
 
-    protected abstract fun markerSetup()
+    protected abstract fun transformer(display: D)
 
     protected abstract fun spawn(location: Location, builder: D.() -> Unit): D
 
-    fun part(builder: D.() -> Unit) {
+    internal fun create() {
         spawn(overlayingMarker.spawnLocation) {
             glowColorOverride = Color.fromRGB(overlayingMarker.color.value())
             isVisibleByDefault = overlayingMarker.globallyVisible
@@ -37,13 +37,9 @@ abstract class Marker<D : Display>(
             brightness = Display.Brightness(15, 15)
             isPersistent = false
 
-            builder(this)
+            transformer(this)
 
             overlayingMarker.displayEntities += this
         }
-    }
-
-    internal fun create() {
-        markerSetup()
     }
 }
