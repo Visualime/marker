@@ -1,5 +1,6 @@
 package fyi.pauli.marker.control;
 
+import fyi.pauli.marker.renderer.common.CubicMarker;
 import fyi.pauli.marker.renderer.common.LineMarker;
 import fyi.pauli.marker.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
@@ -10,13 +11,13 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
-public class LineController extends MarkerController {
+public class CubicController extends MarkerController {
     private Location startLocation;
     private Location endLocation;
 
-    public LineController(Plugin plugin) {
-        super(plugin, ItemBuilder.of(Material.STICK).name(
-                        CONTROLLER_NAME.append(Component.text("Line").color(NamedTextColor.YELLOW))
+    public CubicController(Plugin plugin) {
+        super(plugin, ItemBuilder.of(Material.FEATHER).name(
+                        CONTROLLER_NAME.append(Component.text("Cubic").color(NamedTextColor.YELLOW))
                 ).item()
         );
     }
@@ -29,8 +30,15 @@ public class LineController extends MarkerController {
             endLocation = location;
         }
 
+        if (startLocation.x() == endLocation.x() || startLocation.y() == endLocation.y() || startLocation.z() == endLocation.z() ) {
+            player.sendRichMessage("<red>The Cube must be at least 1 block apart in each direction. Please try again.");
+            startLocation = null;
+            endLocation = null;
+            return;
+        }
+
         if (startLocation != null && endLocation != null) {
-            var marker = LineMarker.text(startLocation.toCenterLocation(), endLocation.toCenterLocation()).configure(textDisplayLineMarker -> {
+            var marker = CubicMarker.text(startLocation.toCenterLocation(), endLocation.toCenterLocation()).configure(textDisplayLineMarker -> {
                 textDisplayLineMarker.color(Color.RED);
             });
 

@@ -42,7 +42,7 @@ public class TextDisplayLineMarker extends LineMarker<TextDisplayLineMarker> {
                 textDisplay.text(TEXT_DISPLAY_CONTENT);
                 textDisplay.setBackgroundColor(color);
                 textDisplay.setBillboard(Display.Billboard.FIXED);
-                textDisplay.setSeeThrough(true); // optional: auch durch Blöcke sichtbar
+                textDisplay.setSeeThrough(true);
                 textDisplay.setRotation(yaw, -pitch);
                 textDisplay.setBrightness(new Display.Brightness(15, 15));
                 textDisplay.setGravity(true);

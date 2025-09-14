@@ -1,6 +1,7 @@
 package fyi.pauli.marker
 
 import fyi.pauli.marker.caching.ModelCache
+import fyi.pauli.marker.control.CubicController
 import fyi.pauli.marker.control.LineController
 import fyi.pauli.marker.control.MarkerController
 import io.ktor.events.Events
@@ -26,6 +27,7 @@ class TestPlugin : JavaPlugin(), Listener {
         server.pluginManager.registerEvents(this, this)
 
         controllers.add(LineController(this))
+        controllers.add(CubicController(this))
     }
 
     @EventHandler
