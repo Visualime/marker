@@ -1,6 +1,7 @@
 import com.vanniktech.maven.publish.KotlinJvm
 
 plugins {
+    java
     signing
     `maven-publish`
     alias(libs.plugins.kotlin.jvm)

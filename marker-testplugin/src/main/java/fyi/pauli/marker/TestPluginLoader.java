@@ -1,13 +1,9 @@
 package fyi.pauli.marker;
 
 import com.google.gson.Gson;
-import fyi.pauli.marker.geometry.Line;
-import fyi.pauli.marker.markers.LineMarker;
-import fyi.pauli.marker.markers.LineMarkerKt;
 import io.papermc.paper.plugin.loader.PluginClasspathBuilder;
 import io.papermc.paper.plugin.loader.PluginLoader;
 import io.papermc.paper.plugin.loader.library.impl.MavenLibraryResolver;
-import org.bukkit.Material;
 import org.eclipse.aether.artifact.DefaultArtifact;
 import org.eclipse.aether.graph.Dependency;
 import org.eclipse.aether.repository.RemoteRepository;
