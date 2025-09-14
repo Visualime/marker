@@ -1,7 +1,7 @@
 package fyi.pauli.marker.control;
 
 import fyi.pauli.marker.TestPlugin;
-import fyi.pauli.marker.renderer.common.LineMarker;
+import fyi.pauli.marker.renderer.common.CircleMarker;
 import fyi.pauli.marker.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -9,13 +9,13 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
-public class LineController extends MarkerController {
+public class CircleController extends MarkerController {
     private Location startLocation;
     private Location endLocation;
 
-    public LineController(TestPlugin plugin) {
-        super(plugin, ItemBuilder.of(Material.STICK).name(
-                        CONTROLLER_NAME.append(Component.text("Line").color(NamedTextColor.YELLOW))
+    public CircleController(TestPlugin plugin) {
+        super(plugin, ItemBuilder.of(Material.SNOWBALL).name(
+                        CONTROLLER_NAME.append(Component.text("Circle").color(NamedTextColor.YELLOW))
                 ).item()
         );
     }
@@ -29,7 +29,9 @@ public class LineController extends MarkerController {
         }
 
         if (startLocation != null && endLocation != null) {
-            var marker = LineMarker.text(startLocation.toCenterLocation(), endLocation.toCenterLocation()).configure(textDisplayLineMarker -> {
+            var radius = startLocation.distance(endLocation);
+
+            var marker = CircleMarker.text(startLocation.toCenterLocation(), radius).configure(textDisplayLineMarker -> {
                 textDisplayLineMarker.color(plugin.getColorPicker().bukkitColor());
             });
 

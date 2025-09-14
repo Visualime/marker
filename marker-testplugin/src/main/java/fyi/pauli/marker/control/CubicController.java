@@ -1,21 +1,19 @@
 package fyi.pauli.marker.control;
 
+import fyi.pauli.marker.TestPlugin;
 import fyi.pauli.marker.renderer.common.CubicMarker;
-import fyi.pauli.marker.renderer.common.LineMarker;
 import fyi.pauli.marker.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 
 public class CubicController extends MarkerController {
     private Location startLocation;
     private Location endLocation;
 
-    public CubicController(Plugin plugin) {
+    public CubicController(TestPlugin plugin) {
         super(plugin, ItemBuilder.of(Material.FEATHER).name(
                         CONTROLLER_NAME.append(Component.text("Cubic").color(NamedTextColor.YELLOW))
                 ).item()
@@ -39,7 +37,7 @@ public class CubicController extends MarkerController {
 
         if (startLocation != null && endLocation != null) {
             var marker = CubicMarker.text(startLocation.toCenterLocation(), endLocation.toCenterLocation()).configure(textDisplayLineMarker -> {
-                textDisplayLineMarker.color(Color.RED);
+                textDisplayLineMarker.color(plugin.getColorPicker().bukkitColor());
             });
 
             marker.draw();
