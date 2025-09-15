@@ -1,13 +1,15 @@
-package fyi.pauli.marker.renderer.common;
+package fyi.pauli.marker.renderer.impl;
 
 import fyi.pauli.marker.renderer.Marker;
-import fyi.pauli.marker.renderer.block.BlockDisplayLineMarker;
-import fyi.pauli.marker.renderer.text.TextDisplayLineMarker;
 import org.bukkit.Location;
 
 public abstract class LineMarker<T extends LineMarker<T>> extends Marker<T> {
-    protected final Location startLocation;
-    protected final Location endLocation;
+    protected Location startLocation;
+    protected Location endLocation;
+
+    protected LineMarker() {
+
+    }
 
     protected LineMarker(Location startLocation, Location endLocation) {
         this.startLocation = startLocation;
@@ -20,5 +22,13 @@ public abstract class LineMarker<T extends LineMarker<T>> extends Marker<T> {
 
     public static BlockDisplayLineMarker block(Location startLocation, Location endLocation) {
         return new BlockDisplayLineMarker(startLocation, endLocation);
+    }
+
+    protected void setStartLocation(Location startLocation) {
+        this.startLocation = startLocation;
+    }
+
+    protected void setEndLocation(Location endLocation) {
+        this.endLocation = endLocation;
     }
 }

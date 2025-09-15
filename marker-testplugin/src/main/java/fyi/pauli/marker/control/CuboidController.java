@@ -1,7 +1,7 @@
 package fyi.pauli.marker.control;
 
 import fyi.pauli.marker.TestPlugin;
-import fyi.pauli.marker.renderer.common.CuboidMarker;
+import fyi.pauli.marker.renderer.impl.CuboidMarker;
 import fyi.pauli.marker.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;

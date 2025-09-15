@@ -1,6 +1,5 @@
-package fyi.pauli.marker.renderer.block;
+package fyi.pauli.marker.renderer.impl;
 
-import fyi.pauli.marker.renderer.common.LineMarker;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -8,7 +7,6 @@ import org.bukkit.entity.BlockDisplay;
 import org.bukkit.entity.Display;
 import org.bukkit.util.Transformation;
 import org.bukkit.util.Vector;
-import org.joml.Quaternionf;
 
 public class BlockDisplayLineMarker extends LineMarker<BlockDisplayLineMarker> {
     public BlockDisplayLineMarker(Location startLocation, Location endLocation) {
@@ -40,7 +38,7 @@ public class BlockDisplayLineMarker extends LineMarker<BlockDisplayLineMarker> {
             blockDisplay.setGravity(true);
             blockDisplay.setPersistent(false);
             blockDisplay.setViewRange(1000);
-            blockDisplay.setBlock(Material.RED_STAINED_GLASS.createBlockData());
+            blockDisplay.setBlock(Material.WHITE_STAINED_GLASS.createBlockData());
             blockDisplay.setGlowing(glowing);
             blockDisplay.setGlowColorOverride(color);
         });

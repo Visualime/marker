@@ -1,6 +1,5 @@
-package fyi.pauli.marker.renderer.text;
+package fyi.pauli.marker.renderer.impl;
 
-import fyi.pauli.marker.renderer.common.LineMarker;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -14,6 +13,10 @@ import org.joml.Vector3f;
 public class TextDisplayLineMarker extends LineMarker<TextDisplayLineMarker> {
     private static final int LENGTH_STRETCH_FACTOR = 8;
     private static final Component TEXT_DISPLAY_CONTENT = Component.text(" ");
+
+    protected TextDisplayLineMarker() {
+
+    }
 
     public TextDisplayLineMarker(Location startLocation, Location endLocation) {
         super(startLocation, endLocation);

@@ -1,8 +1,7 @@
 package fyi.pauli.marker.control;
 
 import fyi.pauli.marker.TestPlugin;
-import fyi.pauli.marker.renderer.common.CircleMarker;
-import fyi.pauli.marker.renderer.common.SphereMarker;
+import fyi.pauli.marker.renderer.impl.SphereMarker;
 import fyi.pauli.marker.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -32,7 +31,7 @@ public class SphereController extends MarkerController {
         if (startLocation != null && endLocation != null) {
             var radius = startLocation.distance(endLocation);
 
-            var marker = SphereMarker.text(startLocation.toCenterLocation(), radius).configure(textDisplayLineMarker -> {
+            var marker = SphereMarker.block(startLocation.toCenterLocation(), radius).configure(textDisplayLineMarker -> {
                 textDisplayLineMarker.color(plugin.getColorPicker().bukkitColor());
             });
 

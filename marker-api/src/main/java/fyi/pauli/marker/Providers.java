@@ -1,11 +1,11 @@
 package fyi.pauli.marker;
 
-import fyi.pauli.marker.provider.BlockDisplayProvider;
-import fyi.pauli.marker.provider.TextDisplayProvider;
+import fyi.pauli.marker.provider.BlockDisplayLineMarkerProvider;
+import fyi.pauli.marker.provider.TextDisplayLineMarkerProvider;
 
 public class Providers {
 
-  public static BlockDisplayProvider blockDisplayProvider = new BlockDisplayProvider();
+  public static BlockDisplayLineMarkerProvider blockDisplayProvider = new BlockDisplayLineMarkerProvider();
 
-  public static TextDisplayProvider textDisplayProvider = new TextDisplayProvider();
+  public static TextDisplayLineMarkerProvider textDisplayProvider = new TextDisplayLineMarkerProvider();
 }

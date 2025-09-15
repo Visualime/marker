@@ -1,20 +1,36 @@
-package fyi.pauli.marker.renderer.text;
+package fyi.pauli.marker.renderer.impl;
 
-import fyi.pauli.marker.renderer.common.LineMarker;
-import fyi.pauli.marker.renderer.common.SphereMarker;
+import fyi.pauli.marker.provider.BlockDisplayLineMarkerProvider;
+import fyi.pauli.marker.provider.LineMarkerProvider;
+import fyi.pauli.marker.provider.TextDisplayLineMarkerProvider;
+import fyi.pauli.marker.renderer.MultiLineMarker;
 import org.bukkit.Color;
 import org.bukkit.Location;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TextDisplaySphereMarker extends SphereMarker<TextDisplaySphereMarker> {
-    public TextDisplaySphereMarker(Location center, double radius) {
-        super(center, radius);
+public class SphereMarker extends MultiLineMarker<SphereMarker> {
+    protected final Location center;
+    protected final double radius;
+
+    protected SphereMarker(LineMarkerProvider lineProvider, Location center, double radius) {
+        super(lineProvider);
+        this.center = center;
+        this.radius = radius;
+    }
+
+
+    public static SphereMarker text(Location center, double radius) {
+        return new SphereMarker(TextDisplayLineMarkerProvider.INSTANCE, center, radius);
+    }
+
+    public static SphereMarker block(Location center, double radius) {
+        return new SphereMarker(BlockDisplayLineMarkerProvider.INSTANCE, center, radius);
     }
 
     @Override
-    public TextDisplaySphereMarker draw() {
+    public SphereMarker draw() {
         List<Location> points = new ArrayList<>();
         var resolution = 16;
 
@@ -54,7 +70,7 @@ public class TextDisplaySphereMarker extends SphereMarker<TextDisplaySphereMarke
 
         // Connect the North Pole with the first ring
         for (int i = 0; i < pointsPerRing; i++) {
-            var marker = LineMarker.text(northPole, points.get(i + 1)).inheritProps(this).draw();
+            var marker = lineProvider.provide(northPole, points.get(i + 1)).inheritProps(this).draw();
             dependencyMarkers.add(marker);
         }
 
@@ -64,7 +80,7 @@ public class TextDisplaySphereMarker extends SphereMarker<TextDisplaySphereMarke
                 int currentIndex = 1 + ring * pointsPerRing + i;
                 int nextIndex = 1 + ring * pointsPerRing + ((i + 1) % pointsPerRing);
 
-                var marker = LineMarker.text(points.get(currentIndex), points.get(nextIndex))
+                var marker = lineProvider.provide(points.get(currentIndex), points.get(nextIndex))
                         .inheritProps(this)
                         .draw();
 
@@ -74,7 +90,7 @@ public class TextDisplaySphereMarker extends SphereMarker<TextDisplaySphereMarke
                 if (ring < resolution - 2) {
                     int nextRingIndex = 1 + (ring + 1) * pointsPerRing + i;
 
-                    var markerRing = LineMarker.text(points.get(currentIndex), points.get(nextRingIndex))
+                    var markerRing = lineProvider.provide(points.get(currentIndex), points.get(nextRingIndex))
                             .inheritProps(this)
                             .draw();
 
@@ -86,7 +102,7 @@ public class TextDisplaySphereMarker extends SphereMarker<TextDisplaySphereMarke
         // Connect the South Pole with the last ring
         int lastRingStart = points.size() - 1 - pointsPerRing;
         for (int i = 0; i < pointsPerRing; i++) {
-            var marker = LineMarker.text(points.get(lastRingStart + i), southPole)
+            var marker = lineProvider.provide(points.get(lastRingStart + i), southPole)
                     .inheritProps(this)
                     .draw();
 

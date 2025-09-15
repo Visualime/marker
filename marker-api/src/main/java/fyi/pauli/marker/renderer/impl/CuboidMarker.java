@@ -1,19 +1,35 @@
-package fyi.pauli.marker.renderer.text;
+package fyi.pauli.marker.renderer.impl;
 
-import fyi.pauli.marker.renderer.common.CuboidMarker;
-import fyi.pauli.marker.renderer.common.LineMarker;
+import fyi.pauli.marker.provider.BlockDisplayLineMarkerProvider;
+import fyi.pauli.marker.provider.LineMarkerProvider;
+import fyi.pauli.marker.provider.TextDisplayLineMarkerProvider;
+import fyi.pauli.marker.renderer.MultiLineMarker;
 import org.bukkit.Location;
 import org.bukkit.World;
 
 import java.util.List;
 
-public class TextDisplayCuboidMarker extends CuboidMarker<TextDisplayCuboidMarker> {
-    public TextDisplayCuboidMarker(Location startLocation, Location endLocation) {
-        super(startLocation, endLocation);
+public class CuboidMarker extends MultiLineMarker<CuboidMarker> {
+    protected Alignment alignment = Alignment.EXACT;
+    protected final Location startLocation;
+    protected final Location endLocation;
+
+    protected CuboidMarker(LineMarkerProvider lineProvider, Location startLocation, Location endLocation) {
+        super(lineProvider);
+        this.startLocation = startLocation;
+        this.endLocation = endLocation;
+    }
+
+    public static CuboidMarker text(Location startLocation, Location endLocation) {
+        return new CuboidMarker(TextDisplayLineMarkerProvider.INSTANCE, startLocation, endLocation);
+    }
+
+    public static CuboidMarker block(Location startLocation, Location endLocation) {
+        return new CuboidMarker(BlockDisplayLineMarkerProvider.INSTANCE, startLocation, endLocation);
     }
 
     @Override
-    public TextDisplayCuboidMarker draw() {
+    public CuboidMarker draw() {
         World world = startLocation.getWorld();
 
         double minX = Math.min(startLocation.getX(), endLocation.getX());
@@ -62,22 +78,22 @@ public class TextDisplayCuboidMarker extends CuboidMarker<TextDisplayCuboidMarke
 
         var markers = List.of(
                 // Frontside
-                LineMarker.text(frontBottomLeft, frontBottomRight),
-                LineMarker.text(frontBottomRight, frontTopRight),
-                LineMarker.text(frontTopRight, frontTopLeft),
-                LineMarker.text(frontTopLeft, frontBottomLeft),
+                lineProvider.provide(frontBottomLeft, frontBottomRight),
+                lineProvider.provide(frontBottomRight, frontTopRight),
+                lineProvider.provide(frontTopRight, frontTopLeft),
+                lineProvider.provide(frontTopLeft, frontBottomLeft),
 
                 // Backside
-                LineMarker.text(backBottomLeft, backBottomRight),
-                LineMarker.text(backBottomRight, backTopRight),
-                LineMarker.text(backTopRight, backTopLeft),
-                LineMarker.text(backTopLeft, backBottomLeft),
+                lineProvider.provide(backBottomLeft, backBottomRight),
+                lineProvider.provide(backBottomRight, backTopRight),
+                lineProvider.provide(backTopRight, backTopLeft),
+                lineProvider.provide(backTopLeft, backBottomLeft),
 
                 // Lines between front and back side
-                LineMarker.text(frontBottomLeft, backBottomLeft),
-                LineMarker.text(frontBottomRight, backBottomRight),
-                LineMarker.text(frontTopLeft, backTopLeft),
-                LineMarker.text(frontTopRight, backTopRight)
+                lineProvider.provide(frontBottomLeft, backBottomLeft),
+                lineProvider.provide(frontBottomRight, backBottomRight),
+                lineProvider.provide(frontTopLeft, backTopLeft),
+                lineProvider.provide(frontTopRight, backTopRight)
         );
 
         markers.forEach(marker -> {
@@ -89,7 +105,14 @@ public class TextDisplayCuboidMarker extends CuboidMarker<TextDisplayCuboidMarke
         });
 
         dependencyMarkers.addAll(markers);
-
         return this;
+    }
+
+    public enum Alignment {
+        INCLUSIVE, EXCLUSIVE, EXACT;
+    }
+
+    public void alignment(Alignment alignment) {
+        this.alignment = alignment;
     }
 }

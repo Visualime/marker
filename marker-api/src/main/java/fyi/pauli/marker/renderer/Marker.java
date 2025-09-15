@@ -15,17 +15,12 @@ public abstract class Marker<T extends Marker<T>> {
     protected boolean globallyVisible = false;
     protected boolean glowing = true;
     protected Set<Entity> markerEntities = new HashSet<>();
-    protected Set<Marker<?>> dependencyMarkers = new HashSet<>();
 
     public abstract T draw();
 
     public void show(Player player, Plugin plugin) {
         markerEntities.forEach(entity -> {
             player.showEntity(plugin, entity);
-        });
-
-        dependencyMarkers.forEach(marker -> {
-            marker.show(player, plugin);
         });
     }
 
@@ -36,10 +31,6 @@ public abstract class Marker<T extends Marker<T>> {
     public void hide(Player player, Plugin plugin) {
         markerEntities.forEach(entity -> {
             player.hideEntity(plugin, entity);
-        });
-
-        dependencyMarkers.forEach(marker -> {
-            marker.hide(player, plugin);
         });
     }
 
@@ -71,8 +62,6 @@ public abstract class Marker<T extends Marker<T>> {
     public void despawn() {
         markerEntities.forEach(Entity::remove);
         markerEntities.clear();
-        dependencyMarkers.forEach(Marker::despawn);
-        dependencyMarkers.clear();
     }
 
     public T inheritProps(Marker<?> marker) {
