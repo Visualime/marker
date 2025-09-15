@@ -44,6 +44,7 @@ paper {
         }
     }
 }
+
 tasks {
     assemble {
         dependsOn(reobfJar)
@@ -51,5 +52,11 @@ tasks {
 
     generatePaperPluginDescription {
         useDefaultCentralProxy()
+    }
+
+    runServer {
+        downloadPlugins {
+            url("https://ci.athion.net/job/FastAsyncWorldEdit/lastBuild/artifact/artifacts/FastAsyncWorldEdit-Paper-2.13.3-SNAPSHOT-1174.jar")
+        }
     }
 }
