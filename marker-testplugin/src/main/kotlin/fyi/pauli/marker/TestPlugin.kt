@@ -6,7 +6,7 @@ import fyi.pauli.marker.control.CuboidController
 import fyi.pauli.marker.control.LineController
 import fyi.pauli.marker.control.MarkerController
 import fyi.pauli.marker.control.SphereController
-import fyi.pauli.marker.control.tool.ColorPicker
+import fyi.pauli.marker.control.tool.MultiTool
 import fyi.pauli.marker.listener.HotbarScrollListener
 import net.kyori.adventure.text.minimessage.MiniMessage
 import org.bukkit.Bukkit
@@ -20,7 +20,7 @@ import java.awt.Color
 
 class TestPlugin : JavaPlugin(), Listener {
     var controllers = ArrayList<MarkerController>()
-    var colorPicker = ColorPicker()
+    var multiTool = MultiTool()
 
     companion object {
         lateinit var INSTANCE: TestPlugin; private set
@@ -42,11 +42,12 @@ class TestPlugin : JavaPlugin(), Listener {
 
         Bukkit.getServer().scheduler.runTaskTimer(this, Runnable {
             Bukkit.getServer().onlinePlayers.forEach { player ->
-                val color: Color = colorPicker.color()
+                val color: Color = multiTool.color()
                 val formattedColor = String.format("#%02X%02X%02X", color.red, color.green, color.blue)
                 player.sendActionBar(
                     MiniMessage.miniMessage()
-                        .deserialize("<gray>Color: <$formattedColor>$formattedColor</gray>")
+                        .deserialize("<gray>Color: <$formattedColor>$formattedColor " +
+                                "<gray>| MarkerType: <yellow>" + if (multiTool.useBlockDisplays()) "Block" else "Text")
                 )
             }
         }, 0, 1)
@@ -59,12 +60,27 @@ class TestPlugin : JavaPlugin(), Listener {
             controllers.forEach { controller ->
                 if (controller.isUsed(event.item)) {
                     event.setCancelled(true)
+                    controller.handleClick(player, event.clickedBlock!!.location)
+                }
+            }
+        }
+
+        if (event.action == Action.RIGHT_CLICK_AIR) {
+            controllers.forEach { controller ->
+                if (controller.isUsed(event.item)) {
+                    event.setCancelled(true)
                     if (player.isSneaking) {
                         controller.handleDespawn()
                         return@forEach
                     }
-                    controller.handleClick(player, event.clickedBlock!!.location)
                 }
+            }
+        }
+
+        if (event.action == Action.LEFT_CLICK_AIR) {
+            if (multiTool.itemStack().equals(event.item)) {
+                event.setCancelled(true);
+                multiTool.handleUseBlockDisplays()
             }
         }
     }
@@ -76,7 +92,7 @@ class TestPlugin : JavaPlugin(), Listener {
         inv.clear()
         controllers.forEach { controller -> inv.addItem(controller.itemStack()) }
 
-        inv.setItem(8, colorPicker.itemStack())
+        inv.setItem(8, multiTool.itemStack())
     }
 }
 

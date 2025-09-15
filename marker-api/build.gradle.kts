@@ -10,7 +10,7 @@ plugins {
     alias(libs.plugins.maven.publish)
 }
 
-version = "0.0.7"
+version = "0.1.0"
 description = "Marker library for minecraft"
 
 dependencies {
@@ -27,10 +27,10 @@ dependencies {
 publishing {
     repositories {
         maven("https://repo.unknowncity.de/releases") {
-            name = "unknowncity"
+            name = "UnknownCity"
             credentials {
-                password = System.getenv("MVN_REPO_USERNAME")
-                username = System.getenv("MVN_REPO_PASSWORD")
+                username = System.getenv("MVN_REPO_USERNAME")
+                password = System.getenv("MVN_REPO_PASSWORD")
             }
         }
 
@@ -45,7 +45,6 @@ mavenPublishing {
     configure(KotlinJvm())
 
     publishToMavenCentral(false)
-    signAllPublications()
 
     pom {
         name = project.name

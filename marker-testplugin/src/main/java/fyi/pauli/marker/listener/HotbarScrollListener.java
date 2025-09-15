@@ -1,12 +1,10 @@
 package fyi.pauli.marker.listener;
 
 import fyi.pauli.marker.TestPlugin;
-import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
 
 public class HotbarScrollListener implements Listener {
 
@@ -20,7 +18,7 @@ public class HotbarScrollListener implements Listener {
     public void onPlayerItemHeld(PlayerItemHeldEvent event) {
         Player player = event.getPlayer();
 
-        if (!plugin.getColorPicker().itemStack().equals(event.getPlayer().getInventory().getItem(event.getPreviousSlot()))) {
+        if (!plugin.getMultiTool().itemStack().equals(event.getPlayer().getInventory().getItem(event.getPreviousSlot()))) {
             return;
         }
 
@@ -36,7 +34,7 @@ public class HotbarScrollListener implements Listener {
     private void handleCustomHotbarAction(Player player, int previousSlot, int newSlot) {
         boolean scrolledRight = isScrolledRight(previousSlot, newSlot);
 
-        plugin.getColorPicker().handleColorPick(scrolledRight);
+        plugin.getMultiTool().handleColorPick(scrolledRight);
     }
 
     private boolean isScrolledRight(int previousSlot, int newSlot) {

@@ -31,8 +31,11 @@ public class SphereController extends MarkerController {
         if (startLocation != null && endLocation != null) {
             var radius = startLocation.distance(endLocation);
 
-            var marker = SphereMarker.block(startLocation.toCenterLocation(), radius).configure(textDisplayLineMarker -> {
-                textDisplayLineMarker.color(plugin.getColorPicker().bukkitColor());
+            var marker = plugin.getMultiTool().useBlockDisplays() ? SphereMarker.block(startLocation.toCenterLocation(), radius)
+                    : SphereMarker.text(startLocation.toCenterLocation(), radius);
+
+            marker.configure(textDisplayLineMarker -> {
+                textDisplayLineMarker.color(plugin.getMultiTool().bukkitColor());
             });
 
             marker.draw();

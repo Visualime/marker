@@ -36,8 +36,11 @@ public class CuboidController extends MarkerController {
         }
 
         if (startLocation != null && endLocation != null) {
-            var marker = CuboidMarker.text(startLocation.toCenterLocation(), endLocation.toCenterLocation()).configure(textDisplayLineMarker -> {
-                textDisplayLineMarker.color(plugin.getColorPicker().bukkitColor());
+            var marker = plugin.getMultiTool().useBlockDisplays() ? CuboidMarker.block(startLocation.toCenterLocation(), endLocation.toCenterLocation())
+                    : CuboidMarker.text(startLocation.toCenterLocation(), endLocation.toCenterLocation());
+
+            marker.configure(textDisplayLineMarker -> {
+                textDisplayLineMarker.color(plugin.getMultiTool().bukkitColor());
                 textDisplayLineMarker.alignment(CuboidMarker.Alignment.EXACT);
             });
 

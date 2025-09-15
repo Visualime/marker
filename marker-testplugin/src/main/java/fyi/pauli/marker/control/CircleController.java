@@ -31,8 +31,11 @@ public class CircleController extends MarkerController {
         if (startLocation != null && endLocation != null) {
             var radius = startLocation.distance(endLocation);
 
-            var marker = CircleMarker.text(startLocation.toCenterLocation(), radius).configure(textDisplayLineMarker -> {
-                textDisplayLineMarker.color(plugin.getColorPicker().bukkitColor());
+            var marker = plugin.getMultiTool().useBlockDisplays() ? CircleMarker.block(startLocation.toCenterLocation(), radius) :
+                    CircleMarker.text(startLocation.toCenterLocation(), radius);
+
+            marker.configure(textDisplayLineMarker -> {
+                textDisplayLineMarker.color(plugin.getMultiTool().bukkitColor());
             });
 
             marker.draw();
