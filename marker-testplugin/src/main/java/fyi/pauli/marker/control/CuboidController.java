@@ -1,7 +1,7 @@
 package fyi.pauli.marker.control;
 
 import fyi.pauli.marker.TestPlugin;
-import fyi.pauli.marker.renderer.common.CubicMarker;
+import fyi.pauli.marker.renderer.common.CuboidMarker;
 import fyi.pauli.marker.util.ItemBuilder;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -9,13 +9,13 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
-public class CubicController extends MarkerController {
+public class CuboidController extends MarkerController {
     private Location startLocation;
     private Location endLocation;
 
-    public CubicController(TestPlugin plugin) {
+    public CuboidController(TestPlugin plugin) {
         super(plugin, ItemBuilder.of(Material.FEATHER).name(
-                        CONTROLLER_NAME.append(Component.text("Cubic").color(NamedTextColor.YELLOW))
+                        CONTROLLER_NAME.append(Component.text("Cuboid").color(NamedTextColor.YELLOW))
                 ).item()
         );
     }
@@ -36,9 +36,9 @@ public class CubicController extends MarkerController {
         }
 
         if (startLocation != null && endLocation != null) {
-            var marker = CubicMarker.text(startLocation.toCenterLocation(), endLocation.toCenterLocation()).configure(textDisplayLineMarker -> {
+            var marker = CuboidMarker.text(startLocation.toCenterLocation(), endLocation.toCenterLocation()).configure(textDisplayLineMarker -> {
                 textDisplayLineMarker.color(plugin.getColorPicker().bukkitColor());
-                textDisplayLineMarker.alignment(CubicMarker.Alignment.EXACT);
+                textDisplayLineMarker.alignment(CuboidMarker.Alignment.EXACT);
             });
 
             marker.draw();

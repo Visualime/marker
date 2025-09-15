@@ -2,7 +2,7 @@ package fyi.pauli.marker
 
 import fyi.pauli.marker.caching.ModelCache
 import fyi.pauli.marker.control.CircleController
-import fyi.pauli.marker.control.CubicController
+import fyi.pauli.marker.control.CuboidController
 import fyi.pauli.marker.control.LineController
 import fyi.pauli.marker.control.MarkerController
 import fyi.pauli.marker.control.tool.ColorPicker
@@ -15,7 +15,6 @@ import org.bukkit.event.block.Action
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.plugin.java.JavaPlugin
-import org.bukkit.scheduler.BukkitTask
 import java.awt.Color
 
 class TestPlugin : JavaPlugin(), Listener {
@@ -36,7 +35,7 @@ class TestPlugin : JavaPlugin(), Listener {
         server.pluginManager.registerEvents(HotbarScrollListener(this), this)
 
         controllers.add(LineController(this))
-        controllers.add(CubicController(this))
+        controllers.add(CuboidController(this))
         controllers.add(CircleController(this))
 
         Bukkit.getServer().scheduler.runTaskTimer(this, Runnable {

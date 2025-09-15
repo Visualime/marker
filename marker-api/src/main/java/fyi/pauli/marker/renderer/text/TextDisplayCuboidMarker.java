@@ -1,14 +1,14 @@
 package fyi.pauli.marker.renderer.text;
 
-import fyi.pauli.marker.renderer.common.CubicMarker;
+import fyi.pauli.marker.renderer.common.CuboidMarker;
 import fyi.pauli.marker.renderer.common.LineMarker;
 import org.bukkit.Location;
 import org.bukkit.World;
 
 import java.util.List;
 
-public class TextDisplayCubicMarker extends CubicMarker<TextDisplayCubicMarker> {
-    public TextDisplayCubicMarker(Location startLocation, Location endLocation) {
+public class TextDisplayCuboidMarker extends CuboidMarker<TextDisplayCuboidMarker> {
+    public TextDisplayCuboidMarker(Location startLocation, Location endLocation) {
         super(startLocation, endLocation);
     }
 
