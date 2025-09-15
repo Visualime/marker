@@ -9,11 +9,11 @@ import java.awt.*;
 
 public class ColorPicker {
     private int hue = 0;
-    private float saturation = 1.0f;
-    private float lightness = 0.5f;
+    private final float saturation = 1.0f;
+    private final float lightness = 0.5f;
     private Color color = Color.getHSBColor(hue / 360f, saturation, lightness);
     private final ItemStack itemStack = ItemBuilder.of(Material.BRUSH)
-            .name(MiniMessage.miniMessage().deserialize("<!i><<light_purple>Color Picker"))
+            .name(MiniMessage.miniMessage().deserialize("<!i><light_purple>Color Picker"))
             .item();
 
     public void handleColorPick(boolean rightScroll) {
