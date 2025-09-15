@@ -19,7 +19,7 @@ public class TextDisplayLineMarker extends LineMarker<TextDisplayLineMarker> {
         super(startLocation, endLocation);
     }
 
-    public void draw() {
+    public TextDisplayLineMarker draw() {
         for (int i = 0; i < 4; i++) {
             var angle = 90 * i;
             var thickness = (float) 0.3;
@@ -73,5 +73,6 @@ public class TextDisplayLineMarker extends LineMarker<TextDisplayLineMarker> {
             display.setTransformation(transformation);
             markerEntities.add(display);
         }
+        return this;
     }
 }

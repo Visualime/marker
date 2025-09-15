@@ -11,7 +11,6 @@ public abstract class CuboidMarker<T extends Marker<T>> extends Marker<T> {
     protected Alignment alignment = Alignment.EXACT;
     protected final Location startLocation;
     protected final Location endLocation;
-    protected final Set<LineMarker<?>> edges = new HashSet<>();
 
     protected CuboidMarker(Location startLocation, Location endLocation) {
         this.startLocation = startLocation;
@@ -28,10 +27,5 @@ public abstract class CuboidMarker<T extends Marker<T>> extends Marker<T> {
 
     public void alignment(Alignment alignment) {
         this.alignment = alignment;
-    }
-
-    @Override
-    public void despawn() {
-        edges.forEach(Marker::despawn);
     }
 }

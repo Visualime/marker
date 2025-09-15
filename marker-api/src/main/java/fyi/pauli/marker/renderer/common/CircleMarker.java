@@ -12,7 +12,6 @@ public abstract class CircleMarker<T extends Marker<T>> extends Marker<T> {
     protected final Location center;
     protected final double radius;
     protected Orientation orientation = Orientation.HORIZONTAL;
-    protected final Set<LineMarker<?>> edges = new HashSet<>();
 
     protected CircleMarker(Location center, double radius) {
         this.center = center;
@@ -29,10 +28,5 @@ public abstract class CircleMarker<T extends Marker<T>> extends Marker<T> {
 
     public void orientation(Orientation orientation) {
         this.orientation = orientation;
-    }
-
-    @Override
-    public void despawn() {
-        edges.forEach(Marker::despawn);
     }
 }

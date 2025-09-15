@@ -5,6 +5,7 @@ import fyi.pauli.marker.control.CircleController
 import fyi.pauli.marker.control.CuboidController
 import fyi.pauli.marker.control.LineController
 import fyi.pauli.marker.control.MarkerController
+import fyi.pauli.marker.control.SphereController
 import fyi.pauli.marker.control.tool.ColorPicker
 import fyi.pauli.marker.listener.HotbarScrollListener
 import net.kyori.adventure.text.minimessage.MiniMessage
@@ -37,6 +38,7 @@ class TestPlugin : JavaPlugin(), Listener {
         controllers.add(LineController(this))
         controllers.add(CuboidController(this))
         controllers.add(CircleController(this))
+        controllers.add(SphereController(this))
 
         Bukkit.getServer().scheduler.runTaskTimer(this, Runnable {
             Bukkit.getServer().onlinePlayers.forEach { player ->

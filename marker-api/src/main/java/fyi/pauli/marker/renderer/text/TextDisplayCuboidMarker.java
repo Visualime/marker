@@ -13,7 +13,7 @@ public class TextDisplayCuboidMarker extends CuboidMarker<TextDisplayCuboidMarke
     }
 
     @Override
-    public void draw() {
+    public TextDisplayCuboidMarker draw() {
         World world = startLocation.getWorld();
 
         double minX = Math.min(startLocation.getX(), endLocation.getX());
@@ -88,7 +88,8 @@ public class TextDisplayCuboidMarker extends CuboidMarker<TextDisplayCuboidMarke
             marker.draw();
         });
 
-        edges.addAll(markers);
-    }
+        dependencyMarkers.addAll(markers);
 
+        return this;
+    }
 }

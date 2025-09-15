@@ -12,7 +12,7 @@ public class TextDisplayCircleMarker extends CircleMarker<TextDisplayCircleMarke
     }
 
     @Override
-    public void draw() {
+    public TextDisplayCircleMarker draw() {
         var segments = DEFAULT_SEGMENTS;
         var circlePoints = new ArrayList<Location>();
 
@@ -46,8 +46,9 @@ public class TextDisplayCircleMarker extends CircleMarker<TextDisplayCircleMarke
 
                 marker.draw();
 
-                edges.add(marker);
+                dependencyMarkers.add(marker);
             }
         }
+        return this;
     }
 }
