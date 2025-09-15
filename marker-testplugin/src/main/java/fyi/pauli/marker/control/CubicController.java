@@ -38,6 +38,7 @@ public class CubicController extends MarkerController {
         if (startLocation != null && endLocation != null) {
             var marker = CubicMarker.text(startLocation.toCenterLocation(), endLocation.toCenterLocation()).configure(textDisplayLineMarker -> {
                 textDisplayLineMarker.color(plugin.getColorPicker().bukkitColor());
+                textDisplayLineMarker.alignment(CubicMarker.Alignment.EXACT);
             });
 
             marker.draw();

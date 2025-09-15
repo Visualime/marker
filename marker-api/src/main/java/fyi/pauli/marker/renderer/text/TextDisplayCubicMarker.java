@@ -23,6 +23,33 @@ public class TextDisplayCubicMarker extends CubicMarker<TextDisplayCubicMarker> 
         double minZ = Math.min(startLocation.getZ(), endLocation.getZ());
         double maxZ = Math.max(startLocation.getZ(), endLocation.getZ());
 
+        switch (alignment) {
+            case EXACT -> {
+                minX = Math.min(startLocation.getX(), endLocation.getX());
+                maxX = Math.max(startLocation.getX(), endLocation.getX());
+                minY = Math.min(startLocation.getY(), endLocation.getY());
+                maxY = Math.max(startLocation.getY(), endLocation.getY());
+                minZ = Math.min(startLocation.getZ(), endLocation.getZ());
+                maxZ = Math.max(startLocation.getZ(), endLocation.getZ());
+            }
+            case EXCLUSIVE -> {
+                minX = Math.min(startLocation.getBlockX(), endLocation.getBlockX()) + 1;
+                maxX = Math.max(startLocation.getBlockX(), endLocation.getBlockX());
+                minY = Math.min(startLocation.getBlockY(), endLocation.getBlockY()) + 1;
+                maxY = Math.max(startLocation.getBlockY(), endLocation.getBlockY());
+                minZ = Math.min(startLocation.getBlockZ(), endLocation.getBlockZ()) + 1;
+                maxZ = Math.max(startLocation.getBlockZ(), endLocation.getBlockZ());
+            }
+            case INCLUSIVE -> {
+                minX = Math.min(startLocation.getBlockX(), endLocation.getBlockX());
+                maxX = Math.max(startLocation.getBlockX(), endLocation.getBlockX()) + 1;
+                minY = Math.min(startLocation.getBlockY(), endLocation.getBlockY());
+                maxY = Math.max(startLocation.getBlockY(), endLocation.getBlockY()) + 1;
+                minZ = Math.min(startLocation.getBlockZ(), endLocation.getBlockZ());
+                maxZ = Math.max(startLocation.getBlockZ(), endLocation.getBlockZ()) + 1;
+            }
+        }
+
         // All 8 corners
         Location frontBottomLeft = new Location(world, minX, minY, minZ); // Vorne unten links
         Location frontBottomRight = new Location(world, maxX, minY, minZ); // Vorne unten rechts

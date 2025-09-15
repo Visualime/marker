@@ -2,14 +2,13 @@ package fyi.pauli.marker.renderer.common;
 
 import fyi.pauli.marker.renderer.Marker;
 import fyi.pauli.marker.renderer.text.TextDisplayCubicMarker;
-import fyi.pauli.marker.renderer.text.TextDisplayLineMarker;
 import org.bukkit.Location;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public abstract class CubicMarker<T extends Marker<T>> extends Marker<T> {
-    protected Alignment alignment = Alignment.CENTER;
+    protected Alignment alignment = Alignment.EXACT;
     protected final Location startLocation;
     protected final Location endLocation;
     protected final Set<LineMarker<?>> edges = new HashSet<>();
@@ -24,7 +23,7 @@ public abstract class CubicMarker<T extends Marker<T>> extends Marker<T> {
     }
 
     public enum Alignment {
-        INCLUSIVE, EXCLUSIVE, CENTER;
+        INCLUSIVE, EXCLUSIVE, EXACT;
     }
 
     public void alignment(Alignment alignment) {
