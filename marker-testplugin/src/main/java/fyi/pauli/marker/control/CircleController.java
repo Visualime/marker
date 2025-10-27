@@ -34,9 +34,7 @@ public class CircleController extends MarkerController {
             var marker = plugin.getMultiTool().useBlockDisplays() ? CircleMarker.block(startLocation.toCenterLocation(), radius) :
                     CircleMarker.text(startLocation.toCenterLocation(), radius);
 
-            marker.configure(textDisplayLineMarker -> {
-                textDisplayLineMarker.color(plugin.getMultiTool().bukkitColor());
-            });
+            marker.color(plugin.getMultiTool().bukkitColor());
 
             marker.draw();
             marker.show(player, plugin);

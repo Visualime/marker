@@ -34,9 +34,7 @@ public class SphereController extends MarkerController {
             var marker = plugin.getMultiTool().useBlockDisplays() ? SphereMarker.block(startLocation.toCenterLocation(), radius)
                     : SphereMarker.text(startLocation.toCenterLocation(), radius);
 
-            marker.configure(textDisplayLineMarker -> {
-                textDisplayLineMarker.color(plugin.getMultiTool().bukkitColor());
-            });
+            marker.color(plugin.getMultiTool().bukkitColor());
 
             marker.draw();
             marker.show(player, plugin);

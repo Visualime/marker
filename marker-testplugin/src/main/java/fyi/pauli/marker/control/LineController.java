@@ -32,9 +32,7 @@ public class LineController extends MarkerController {
             var marker = plugin.getMultiTool().useBlockDisplays() ?  LineMarker.block(startLocation.toCenterLocation(), endLocation.toCenterLocation())
                     : LineMarker.text(startLocation.toCenterLocation(), endLocation.toCenterLocation());
 
-            marker.configure(textDisplayLineMarker -> {
-                textDisplayLineMarker.color(plugin.getMultiTool().bukkitColor());
-            });
+            marker.color(plugin.getMultiTool().bukkitColor());
 
             marker.draw();
             marker.show(player, plugin);

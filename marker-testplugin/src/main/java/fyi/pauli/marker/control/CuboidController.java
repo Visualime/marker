@@ -39,10 +39,8 @@ public class CuboidController extends MarkerController {
             var marker = plugin.getMultiTool().useBlockDisplays() ? CuboidMarker.block(startLocation.toCenterLocation(), endLocation.toCenterLocation())
                     : CuboidMarker.text(startLocation.toCenterLocation(), endLocation.toCenterLocation());
 
-            marker.configure(textDisplayLineMarker -> {
-                textDisplayLineMarker.color(plugin.getMultiTool().bukkitColor());
-                textDisplayLineMarker.alignment(CuboidMarker.Alignment.EXACT);
-            });
+            marker.alignment(CuboidMarker.Alignment.EXACT);
+            marker.color(plugin.getMultiTool().bukkitColor());
 
             marker.draw();
             marker.show(player, plugin);
